@@ -101,6 +101,12 @@ import { validateEmail } from "../../utils/helper";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import { useContext } from "react";
 
+//missing
+import { UserContext } from "../../context/UserContext"; // adjust path if different
+import uploadImage from "../../utils/uploadImage";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
+
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
@@ -136,11 +142,16 @@ const SignUp = () => {
     // SignUp API Call
     try {
       //Upload image if present
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || "";
+      }
 
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,
         password,
+        profileImageUrl,
       });
 
       const { token, user } = response.data;
