@@ -165,7 +165,7 @@ exports.getDashboardData = async (req, res) => {
         total: incomeLast60Days,
         transactions: last60DaysIncomeTransactions,
       },
-      recentTransactions: lastTransactions,
+      RecentTransactions: lastTransactions,
     });
   } catch (error) {
     res.status(500).json({ message: "Server Error", error });
