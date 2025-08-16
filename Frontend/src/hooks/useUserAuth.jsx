@@ -70,4 +70,6 @@ export const useUserAuth = () => {
       isMounted = false;
     };
   }, [user, updateUser, clearUser, navigate]);
+
+  return { user, updateUser, clearUser };
 };

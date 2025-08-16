@@ -77,7 +77,7 @@ const RecentTransactions = ({ transactions = [], onSeeMore }) => {
                 className="font-medium"
                 style={{ color: tx.type === "income" ? "green" : "red" }}
               >
-                {tx.type === "income" ? "+" : "-"}${tx.amount}
+                {tx.type === "income" ? "+" : "-"}₹{tx.amount}
               </span>
             </div>
           ))
