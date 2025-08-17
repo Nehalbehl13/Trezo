@@ -296,6 +296,8 @@ import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoMdCard } from "react-icons/io";
 import { useMemo } from "react";
 import AIAdvisor from "../../components/Dashboard/AIAdvisor";
+import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
+import RecentIncome from "../../components/Dashboard/RecentIncome";
 
 const Home = () => {
   const { user } = useUserAuth();
@@ -323,7 +325,7 @@ const Home = () => {
     return last60DaysData.reduce((sum, t) => sum + t.amount, 0);
   }, [last60DaysData]);
   return (
-    <DashboardLayout>
+    <DashboardLayout activeMenu="Dashboard">
       {/* Info Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-5">
         <InfoCard
@@ -349,7 +351,7 @@ const Home = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {/* Income Pie Chart */}
-        <div className="card col-span-1">
+        {/* <div className="card col-span-1">
           <CustomPieChart
             data={dashboardData?.incomeCategories || []}
             label="Income"
@@ -357,10 +359,10 @@ const Home = () => {
             Colors={["#4CAF50", "#81C784", "#388E3C"]}
             showTextAnchor
           />
-        </div>
+        </div> */}
 
         {/* Expense Pie Chart */}
-        <div className="card col-span-1">
+        {/* <div className="card col-span-1">
           <CustomPieChart
             data={dashboardData?.expenseCategories || []}
             label="Expenses"
@@ -368,7 +370,7 @@ const Home = () => {
             Colors={["#F44336", "#E57373", "#D32F2F"]}
             showTextAnchor
           />
-        </div>
+        </div> */}
 
         {/* Finance Bar Graph */}
         <div className="card col-span-1">
@@ -387,9 +389,20 @@ const Home = () => {
         </div>
 
         {/* Last 60 Days Expense Pie Chart */}
-        <Last60DaysExpensePie
+        {/* <Last60DaysExpensePie
           data={last60DaysData}
           total={totalLast60DaysExpense}
+        /> */}
+        <RecentIncomeWithChart
+          data={
+            dashboardData?.last30DaysExpenses?.transactions?.slice(0, 4) || []
+          }
+          totalExpense={dashboardData?.totalExpense || 0}
+        />
+
+        <RecentIncome
+          trsactions={dashboardData?.totalIncome?.transactions || []}
+          onSeeMore={() => navigate("/income")}
         />
 
         {/* Recent Transactions (All) */}

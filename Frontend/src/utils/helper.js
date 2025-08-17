@@ -1,4 +1,5 @@
 //email validation ke rules
+import moment from "moment";
 export const validateEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
@@ -61,24 +62,36 @@ export const prepareExpenseBarChartData = (data = []) => {
 
 //add on
 //pie chart 60 wala
-// utils/helper.js
 export const prepareLast60DaysExpenses = (transactions = []) => {
-  const sixtyDaysAgo = new Date();
-  sixtyDaysAgo.setDate(sixtyDaysAgo.getDate() - 60);
+  const today = new Date();
+  const past60Days = new Date();
+  past60Days.setDate(today.getDate() - 60);
 
   const filtered = transactions.filter(
-    (t) => new Date(t.date) >= sixtyDaysAgo && t.type === "expense"
+    (t) => new Date(t.date) >= past60Days && new Date(t.date) <= today
   );
 
   const grouped = {};
-
   filtered.forEach((t) => {
-    if (grouped[t.category]) {
-      grouped[t.category] += Number(t.amount);
-    } else {
-      grouped[t.category] = Number(t.amount);
-    }
+    const category = t.category || "Others";
+    const amount = Number(t.amount) || 0;
+    if (grouped[category]) grouped[category] += amount;
+    else grouped[category] = amount;
   });
 
   return Object.entries(grouped).map(([name, amount]) => ({ name, amount }));
+};
+
+export const prepareIncomeBarChartData = (data = []) => {
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  const chartData = sortedData.map((item) => ({
+    month: moment(item?.date).format("Do MMM"),
+    amount: item?.amount,
+    source: item?.source,
+  }));
+
+  return chartData;
 };

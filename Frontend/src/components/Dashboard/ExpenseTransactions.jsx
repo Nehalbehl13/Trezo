@@ -33,7 +33,7 @@
 
 import React from "react";
 import { LuArrowRight } from "react-icons/lu";
-import moment from "moment"; // ✅ import added
+import moment from "moment";
 import TransactionInfoCard from "../cards/TransactionsInfoCard";
 
 const ExpenseTransactions = ({ transactions, onSeeMore }) => {
