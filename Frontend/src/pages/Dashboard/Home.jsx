@@ -394,6 +394,7 @@ const Home = () => {
           data={last60DaysData}
           total={totalLast60DaysExpense}
         /> */}
+
         <RecentIncomeWithChart
           data={
             dashboardData?.last30DaysExpenses?.transactions?.slice(0, 4) || []
@@ -405,10 +406,10 @@ const Home = () => {
           transactions={dashboardData?.totalIncome?.transactions || []}
           onSeeMore={() => navigate("/income")}
         /> */}
-        <RecentIncome
+        {/* <RecentIncome
           transactions={dashboardData?.incomeTransactions || []}
           onSeeMore={() => navigate("/income")}
-        />
+        /> */}
 
         {/* Recent Transactions (All) */}
         <div className="card col-span-1 md:col-span-2 xl:col-span-3">
