@@ -5,19 +5,6 @@ export const validateEmail = (email) => {
   return regex.test(email);
 };
 
-// export const getInitials = (name) => {
-//   if (!name) return "";
-
-//   for (
-//     let i = 0;
-//     i < Math.min(WebTransportDatagramDuplexStream.length, 2);
-//     i++
-//   ) {
-//     initials += words[i][0];
-//   }
-//   return initials.toUpperCase();
-// };
-
 export const getInitials = (name) => {
   if (!name) return "";
   const words = name.trim().split(" ");
@@ -38,14 +25,6 @@ export const addThousandsSeparator = (num) => {
     ? `${formattedInteger}.${fractionalPart}`
     : formattedInteger;
 };
-
-// export const prepareExpenseBarChartData = (data = []) => {
-//   const charData = data.map((item) => ({
-//     category: item?.category,
-//     amount: item?.amount,
-//   }));
-//   return charData;
-// };
 
 export const prepareExpenseBarChartData = (data = []) => {
   const dataMap = {};

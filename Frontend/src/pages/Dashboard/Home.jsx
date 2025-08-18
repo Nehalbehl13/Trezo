@@ -324,6 +324,7 @@ const Home = () => {
   const totalLast60DaysExpense = useMemo(() => {
     return last60DaysData.reduce((sum, t) => sum + t.amount, 0);
   }, [last60DaysData]);
+
   return (
     <DashboardLayout activeMenu="Dashboard">
       {/* Info Cards */}
@@ -400,15 +401,19 @@ const Home = () => {
           totalExpense={dashboardData?.totalExpense || 0}
         />
 
+        {/* <RecentIncome
+          transactions={dashboardData?.totalIncome?.transactions || []}
+          onSeeMore={() => navigate("/income")}
+        /> */}
         <RecentIncome
-          trsactions={dashboardData?.totalIncome?.transactions || []}
+          transactions={dashboardData?.incomeTransactions || []}
           onSeeMore={() => navigate("/income")}
         />
 
         {/* Recent Transactions (All) */}
         <div className="card col-span-1 md:col-span-2 xl:col-span-3">
           <RecentTransactions
-            transactions={dashboardData?.recentTransactions || []}
+            transactions={dashboardData?.RecentTransactions || []}
             onSeeMore={() => navigate("/expense")}
           />
         </div>
