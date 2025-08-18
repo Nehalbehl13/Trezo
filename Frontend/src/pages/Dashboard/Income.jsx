@@ -99,7 +99,29 @@ const Income = () => {
   };
 
   // handle download income details
-  const handleDownloadIncomeDetails = async () => {};
+  const handleDownloadIncomeDetails = async () => {
+    try {
+      const response = await axiosInstance.get(
+        API_PATHS.INCOME.DOWNLOAD_INCOME,
+        {
+          responseType: "blob",
+        }
+      );
+
+      //create a URL for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "income_details.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading income details:", error);
+      toast.error("Failed to download income details. Pls try again");
+    }
+  };
 
   useEffect(() => {
     fetchIncomeDetails();
@@ -149,31 +171,29 @@ const Income = () => {
           />
         </Modal>
 
-        <DashboardLayout>
-          {/* Your income summary, charts, and income list here */}
+        {/* Your income summary, charts, and income list here */}
 
-          <div className="card col-span-1 md:col-span-2 xl:col-span-3 p-6 bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl shadow-lg border border-purple-200">
-            <div className="flex items-center justify-between mb-4">
-              <h5 className="text-xl font-bold text-purple-800">
-                🤖 Income Manager
-              </h5>
-              <span className="text-sm text-purple-600">
-                Get instant insights about Income Analysis!
-              </span>
-            </div>
-            <input
-              type="text"
-              placeholder="Ask me about your finances ..."
-              className="w-full p-3 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4"
-            />
-            <button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300">
-              Trezo
-            </button>
-            <div className="mt-4 p-3 bg-white border border-purple-200 rounded-lg text-gray-700 min-h-[60px]">
-              Income guidance after analysis is....
-            </div>
+        <div className="card col-span-1 md:col-span-2 xl:col-span-3 p-6 bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl shadow-lg border border-purple-200">
+          <div className="flex items-center justify-between mb-4">
+            <h5 className="text-xl font-bold text-purple-800">
+              🤖 Income Manager
+            </h5>
+            <span className="text-sm text-purple-600">
+              Get instant insights about Income Analysis!
+            </span>
           </div>
-        </DashboardLayout>
+          <input
+            type="text"
+            placeholder="Ask me about your finances ..."
+            className="w-full p-3 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4"
+          />
+          <button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300">
+            Trezo
+          </button>
+          <div className="mt-4 p-3 bg-white border border-purple-200 rounded-lg text-gray-700 min-h-[60px]">
+            Income guidance after analysis is....
+          </div>
+        </div>
       </div>
     </DashboardLayout>
   );
