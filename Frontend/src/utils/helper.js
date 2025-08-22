@@ -41,13 +41,37 @@ export const prepareExpenseBarChartData = (data = []) => {
 
 //add on
 //pie chart 60 wala
+// export const prepareLast60DaysExpenses = (transactions = []) => {
+//   const today = new Date();
+//   const past60Days = new Date();
+//   past60Days.setDate(today.getDate() - 60);
+
+//   const filtered = transactions.filter(
+//     (t) => new Date(t.date) >= past60Days && new Date(t.date) <= today
+//   );
+
+//   const grouped = {};
+//   filtered.forEach((t) => {
+//     const category = t.category || "Others";
+//     const amount = Number(t.amount) || 0;
+//     if (grouped[category]) grouped[category] += amount;
+//     else grouped[category] = amount;
+//   });
+
+//   return Object.entries(grouped).map(([name, amount]) => ({ name, amount }));
+// };
+
 export const prepareLast60DaysExpenses = (transactions = []) => {
   const today = new Date();
   const past60Days = new Date();
   past60Days.setDate(today.getDate() - 60);
 
+  // ✅ Only include expense transactions
   const filtered = transactions.filter(
-    (t) => new Date(t.date) >= past60Days && new Date(t.date) <= today
+    (t) =>
+      new Date(t.date) >= past60Days &&
+      new Date(t.date) <= today &&
+      t.type === "expense" // <-- add this check
   );
 
   const grouped = {};

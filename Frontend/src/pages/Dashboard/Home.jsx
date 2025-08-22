@@ -292,6 +292,7 @@ import {
   prepareLast60DaysExpenses,
   addThousandsSeparator,
 } from "../../utils/helper";
+//import { addThousandsSeparator } from "../../utils/helper";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoMdCard } from "react-icons/io";
 import { useMemo } from "react";
@@ -318,7 +319,7 @@ const Home = () => {
 
   const last60DaysData = useMemo(() => {
     if (!dashboardData) return [];
-    return prepareLast60DaysExpenses(dashboardData.recentTransactions);
+    return prepareLast60DaysExpenses(dashboardData.RecentTransactions);
   }, [dashboardData]);
 
   const totalLast60DaysExpense = useMemo(() => {
@@ -390,17 +391,17 @@ const Home = () => {
         </div>
 
         {/* Last 60 Days Expense Pie Chart */}
-        {/* <Last60DaysExpensePie
+        <Last60DaysExpensePie
           data={last60DaysData}
-          total={totalLast60DaysExpense}
-        /> */}
+          totalExpense={totalLast60DaysExpense}
+        />
 
-        <RecentIncomeWithChart
+        {/* <RecentIncomeWithChart
           data={
             dashboardData?.last30DaysExpenses?.transactions?.slice(0, 4) || []
           }
           totalExpense={dashboardData?.totalExpense || 0}
-        />
+        /> */}
 
         {/* <RecentIncome
           transactions={dashboardData?.totalIncome?.transactions || []}
