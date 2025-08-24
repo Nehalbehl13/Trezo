@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { LuDownload } from "react-icons/lu";
-import TransactionsInfoCard from "../Cards/TransactionsInfoCard";
+import TransactionsInfoCard from "../cards/TransactionsInfoCard";
 
 const IncomeList = ({ transactions, onDelete, onDownload }) => {
   return (
